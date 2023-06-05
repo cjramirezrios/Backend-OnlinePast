@@ -4,6 +4,10 @@ const cors=require('cors');
 const app=express();
 const userRouter=require('./routes/user.routes');
 const customerRouter=require('./routes/customer.routes');
+const payRouter=require('./routes/pay.routes');
+const categoryRouter=require('./routes/category.routes');
+const productRouter=require('./routes/product.routes');
+const pedidoRouter=require('./routes/pedido.routes');
 app.set('port',process.env.PORT || 3000);
 
 app.use(express.json());
@@ -11,5 +15,9 @@ app.use(express.json());
 app.use(cors());
 app.use('/api',userRouter);
 app.use('/api',customerRouter);
+app.use("/api",payRouter);
+app.use("/api",categoryRouter);
+app.use("/api",productRouter);
+app.use("/api",pedidoRouter);
 
 module.exports=app;
