@@ -23,7 +23,7 @@ const PedidoProductosSchema={
   pedidoId:{
     field:'pedido_id',
     allowNull:false,
-    type:DataTypes.INTEGER,
+    type:DataTypes.STRING,
     references:{
       model:PEDIDO_TABLE,
       key:'id'

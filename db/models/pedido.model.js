@@ -5,9 +5,8 @@ const PEDIDO_TABLE='pedidos';
 const PedidoSchema={
   id:{
     allowNull:false,
-    autoIncrement:true,
     primaryKey:true,
-    type:DataTypes.INTEGER
+    type:DataTypes.STRING
   },
   customerId:{
     field:'customer_id',
