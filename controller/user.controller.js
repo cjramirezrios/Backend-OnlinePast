@@ -13,14 +13,14 @@ const getAllUsers=async(req,res=response)=>{
 
 const getByEmail=async(email)=>{
   const rta=await models.User.findOne({
-    where:{email}
+    where:{email},includes:['customer']
   });
   return rta;
 }
 
 const getUserById=async(req,res=response)=>{
   const {id}=req.params;
-  const user=await models.User.findByPk(id);
+  const user=await models.User.findByPk(id,{includes:['customer']});
   return res.json(user);
 }
 
