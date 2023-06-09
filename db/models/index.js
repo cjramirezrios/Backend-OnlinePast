@@ -19,7 +19,6 @@ function setupModels(sequelize){
     Category.associate(sequelize.models);
     Product.associate(sequelize.models);
     Pedido.associate(sequelize.models);
-    PedidoProduct.associate(sequelize.models);
 }
 
 module.exports=setupModels;

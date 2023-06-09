@@ -71,8 +71,10 @@ const createPedido=async(req,res=response)=>{
       notification_url:"https://a008-38-25-30-174.sa.ngrok.io/api/webhook"
     });
     console.log(result);
-    await models.Pedido.create({id:id,customerId:data.customerId,total:data.total});
-    addItems(data.items,id);
+    const pedido=await models.Pedido.create({id,customerId:data.customerId,total:data.total});
+    if(pedido){
+      addItems(data.items,id);
+    }
     res.json(result)
   }catch(err){
     console.log(err);
@@ -105,7 +107,7 @@ const addItems=async(items,data)=>{
       productId:items[i].id
     }
     if(product && order){
-      await models.PedidoProduct.create(model);
+      await models.PedidoProductos.create(model);
       const stock_actual=product.stock-1;
       await product.update({stock:stock_actual});
     }else{

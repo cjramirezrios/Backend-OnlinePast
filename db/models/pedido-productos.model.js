@@ -53,7 +53,7 @@ class PedidoProduct extends Model{
     return {
       sequelize,
       tablename:PEDIDO_PRODUCT_TABLE,
-      modelName:'PedidoProduct',
+      modelName:'PedidoProductos',
       timestamps:false
     }
   }
