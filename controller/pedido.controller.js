@@ -108,7 +108,7 @@ const addItems=async(items,data)=>{
     }
     if(product && order){
       await models.PedidoProductos.create(model);
-      const stock_actual=product.stock-1;
+      const stock_actual=product.stock-model.amount;
       await product.update({stock:stock_actual});
     }else{
       console.log('No existe el producto o el pedido digitado')
