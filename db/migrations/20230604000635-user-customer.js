@@ -170,6 +170,7 @@ module.exports = {
     total:{
       type:DataTypes.INTEGER,
     }});
+    
     /*await queryInterface.createTable(PEDIDO_PRODUCT_TABLE,{id:{
       allowNull:false,
       autoIncrement:true,

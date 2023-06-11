@@ -11,11 +11,14 @@ const getAllCustomers=async(req,res=response)=>{
 const getCustomerById=async(req,res=response)=>{
   try{
     const {id}=req.params;
-    const customer=await models.Customer.findByPk(id);
+    const customer=await models.Customer.findByPk(id,{include:[{
+      association:'pedidos',
+      include:['items'],
+    }]});
     return res.json(customer);
   }catch(err){
     return res.json({
-      error:err.parent.detail
+      error:err
     });
   }
 }
