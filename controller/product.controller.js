@@ -27,6 +27,7 @@ const getProductById=async(req,res=response)=>{
 const createProduct=async(req,res=response)=>{
   const {...data}=req.body;
   const newProduct=await models.Product.create(data);
+  await newProduct.save();
   return res.json(
     newProduct
   )  
@@ -44,6 +45,7 @@ const updateProduct=async(req,res=response)=>{
 const deleteProduct=async(req,res=response)=>{
   const {id}=req.params;
   const product=await models.Product.findByPk(id);
+  
   await product.destroy();
 
   return res.json({

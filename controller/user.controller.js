@@ -13,14 +13,14 @@ const getAllUsers=async(req,res=response)=>{
 
 const getByEmail=async(email)=>{
   const rta=await models.User.findOne({
-    where:{email},includes:['customer']
+    where:{email},include:['customer']
   });
   return rta;
 }
 
 const getUserById=async(req,res=response)=>{
   const {id}=req.params;
-  const user=await models.User.findByPk(id,{includes:['customer']});
+  const user=await models.User.findByPk(id,{include:['customer']});
   return res.json(user);
 }
 
@@ -28,7 +28,7 @@ const createUser=async(req,res=response)=>{
   const {password,...data}=req.body;
   const hash=await bcrypt.hashSync(password,10);
   const newUser=await models.User.create({...data,password:hash});
-
+  await newUser.save();
   return res.json(newUser);
 }
 

@@ -143,7 +143,7 @@ module.exports = {
         key:'id'
       },
       onUpdate:'CASCADE',
-      onDelete:'SET NULL'
+      onDelete:'CASCADE'
     }});
     await queryInterface.createTable(PEDIDO_TABLE,{id:{
       allowNull:false,
@@ -171,7 +171,7 @@ module.exports = {
       type:DataTypes.INTEGER,
     }});
     
-    /*await queryInterface.createTable(PEDIDO_PRODUCT_TABLE,{id:{
+    await queryInterface.createTable(PEDIDO_PRODUCT_TABLE,{id:{
       allowNull:false,
       autoIncrement:true,
       primaryKey:true,
@@ -205,10 +205,8 @@ module.exports = {
       references:{
         model:PRODUCT_TABLE,
         key:'id'
-      },
-      onUpdate:'CASCADE',
-      onDelete:'SET NULL'
-    }});*/
+      }
+    }});
   },
 
   down: async(queryInterface, Sequelize)=> {

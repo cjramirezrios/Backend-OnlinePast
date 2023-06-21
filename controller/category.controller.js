@@ -2,7 +2,7 @@ const {response}=require('express');
 const{models} =require('../libs/sequelize')
 
 const getAllCategories=async(req,res=response)=>{
-  const categories=await models.Category.findAll();
+  const categories=await models.Category.findAll({include:['products']});
   return res.json(
     categories
   )
@@ -20,6 +20,7 @@ const getCategoryById=async(req,res=response)=>{
 const createCategory=async(req,res=response)=>{
   const {...data}=req.body;
   const newCategory=await models.Category.create(data);
+  await newCategory.save();
   return res.json(newCategory);
 }
 

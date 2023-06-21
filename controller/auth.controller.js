@@ -26,14 +26,15 @@ const login=async(req,res=response)=>{
           msg:'La contraseña es invalida'
         })
       }
-      
-      const token=await generateJWT(dbUser.id,dbUser.role,dbUser.customer.name,dbUser.customer.lastName,dbUser.customer.address,dbUser.customer.phone,dbUser.email);
+      console.log(dbUser.customer.id);
+      const token=await generateJWT(dbUser.id,dbUser.role,dbUser.customer.name,dbUser.customer.lastName,dbUser.customer.address,dbUser.customer.phone,dbUser.email,dbUser.customer.id);
       
       return res.json({
         ok:true,
         id:dbUser.id,
         name:dbUser.customer.name,
         role:dbUser.role,
+        customerId:dbUser.customer.id,
         lastName:dbUser.customer.lastName,
         address:dbUser.customer.address,
         phone:dbUser.customer.phone,
@@ -77,9 +78,10 @@ const login=async(req,res=response)=>{
 }
 
 const revalidarToken=async(req,res=response)=>{
-  const{id,name,role,email,lastName,address,phone}=req;
-  if(role=='customer'){
-    const token=await generateJWT(id,role,name,lastName,address,phone,email);
+  const roleV=req.role;
+  if(roleV=='customer'){
+    const{id,name,role,email,lastName,address,phone,customerId}=req;
+    const token=await generateJWT(id,role,name,lastName,address,phone,email,customerId);
     res.json({
       id,
       name,
@@ -87,16 +89,19 @@ const revalidarToken=async(req,res=response)=>{
       lastName,
       address,
       phone,
+      customerId,
       email,
-      token
+      token,
     })
+
   }else{
+    const {id,role,email}=req;
     const token=await generateJWTAdmin(id,role,email);
-    res.json({
+    return res.json({
       id,
       role,
       email,
-      token
+      token,
     })
   }
 }

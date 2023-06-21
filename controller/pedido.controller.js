@@ -46,7 +46,7 @@ const createPedido=async(req,res=response)=>{
         }
     },
       back_urls: {
-          "success": "http://localhost:4000/api/success",
+          "success": "http://localhost:4200/store/inicio",
           "failure": "http://localhost:4000/api/failure",
           "pending": "http://localhost:4000/api/pending"
       },
@@ -64,14 +64,11 @@ const createPedido=async(req,res=response)=>{
           ],
           installments: 12
       },
-      shipments:{
-        cost: 90,
-        mode: "not_specified"
-      },
       notification_url:"https://a008-38-25-30-174.sa.ngrok.io/api/webhook"
     });
     console.log(result);
     const pedido=await models.Pedido.create({id,customerId:data.customerId,total:data.total});
+    await pedido.save();
     if(pedido){
       addItems(data.items,id);
     }
@@ -107,7 +104,8 @@ const addItems=async(items,data)=>{
       productId:items[i].id
     }
     if(product && order){
-      await models.PedidoProductos.create(model);
+      const productPedido=await models.PedidoProductos.create(model);
+      await productPedido.save();
       const stock_actual=product.stock-model.amount;
       await product.update({stock:stock_actual});
     }else{

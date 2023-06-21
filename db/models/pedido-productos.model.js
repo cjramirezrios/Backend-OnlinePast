@@ -39,8 +39,6 @@ const PedidoProductosSchema={
       model:PRODUCT_TABLE,
       key:'id'
     },
-    onUpdate:'CASCADE',
-    onDelete:'SET NULL'
   }
 }
 
@@ -52,7 +50,7 @@ class PedidoProduct extends Model{
   static config(sequelize){
     return {
       sequelize,
-      tablename:PEDIDO_PRODUCT_TABLE,
+      tableName:PEDIDO_PRODUCT_TABLE,
       modelName:'PedidoProductos',
       timestamps:false
     }

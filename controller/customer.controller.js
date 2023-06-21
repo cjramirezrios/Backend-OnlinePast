@@ -28,6 +28,7 @@ const createCustomer=async(req,res=response)=>{
     const customer=await models.Customer.create(data,{
       include:['user']
     });
+    await customer.save();
     return res.json(customer);
   }catch(err){
     return res.json({
